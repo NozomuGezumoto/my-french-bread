@@ -11,5 +11,16 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
+  ],
+  "exclude": [
+    "src/components/BeerMap.tsx",
+    "src/components/BreweryDetail.tsx",
+    "src/components/AddBreweryModal.tsx",
+    "src/components/SushiMap.tsx",
+    "src/components/SushiList.tsx",
+    "src/components/ShopDetail.tsx",
+    "src/components/AddShopModal.tsx",
+    "src/data/breweryData.ts",
+    "src/data/sushiData.ts"
   ]
 }

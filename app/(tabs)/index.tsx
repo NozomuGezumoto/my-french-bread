@@ -1,10 +1,10 @@
 import { View, StyleSheet } from 'react-native';
-import SushiMap from '../../src/components/SushiMap';
+import BakeryMap from '../../src/components/BakeryMap';
 
 export default function MapScreen() {
   return (
     <View style={styles.container}>
-      <SushiMap />
+      <BakeryMap />
     </View>
   );
 }

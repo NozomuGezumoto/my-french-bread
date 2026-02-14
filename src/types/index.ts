@@ -1,56 +1,61 @@
-// Sushi shop data types (from OSM GeoJSON)
+// ============================================
+// French Bakery (Boulangerie) Types
+// Pins = shop locations in France
+// ============================================
 
-export interface SushiShop {
-  osm_id: string;
+export interface Bakery {
+  id: string;
   name: string;
-  name_reading?: string;  // ひらがな/カタカナ読み（あれば）
-  amenity: string;
-  shop: string;
-  cuisine: string;
-  'addr:prefecture': string;
-  'addr:city': string;
-  'addr:full': string;
-  source: string;
+  name_reading?: string;
+  region: string;
+  address?: string;
+  type: 'boulangerie' | 'patisserie' | 'artisan';
+  characteristics?: string;
+  source?: string;
 }
 
-export interface SushiFeature {
+export interface BakeryFeature {
   type: 'Feature';
   geometry: {
     type: 'Point';
     coordinates: [number, number]; // [longitude, latitude]
   };
-  properties: SushiShop;
+  properties: Bakery & { 'addr:region'?: string; 'addr:full'?: string };
 }
 
-export interface SushiGeoJSON {
+export interface BakeryGeoJSON {
   type: 'FeatureCollection';
-  features: SushiFeature[];
+  features: BakeryFeature[];
 }
 
-// Map pin for display
-export interface SushiPin {
+export interface BakeryPin {
   id: string;
   lat: number;
   lng: number;
   name: string;
-  nameReading: string;  // ソート用（読み仮名があればそれ、なければname）
-  type: 'restaurant' | 'fast_food' | 'seafood';
-  cuisine: string;
+  nameReading: string;
+  type: 'boulangerie' | 'patisserie' | 'artisan';
   address: string;
-  prefecture: string;   // 都道府県（フィルター用）
-  isCustom?: boolean;   // ユーザーが追加した店舗
+  region: string;
+  characteristics?: string;
+  isCustom?: boolean;
 }
 
-// 都道府県リスト
-export const PREFECTURES = [
-  '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
-  '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県',
-  '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県',
-  '岐阜県', '静岡県', '愛知県', '三重県',
-  '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県',
-  '鳥取県', '島根県', '岡山県', '広島県', '山口県',
-  '徳島県', '香川県', '愛媛県', '高知県',
-  '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県',
+// フランスの地域（レジオン）
+export const FRANCE_REGIONS = [
+  'Île-de-France',
+  'Auvergne-Rhône-Alpes',
+  'Nouvelle-Aquitaine',
+  'Occitanie',
+  'Hauts-de-France',
+  'Provence-Alpes-Côte d\'Azur',
+  'Grand Est',
+  'Pays de la Loire',
+  'Bretagne',
+  'Normandie',
+  'Bourgogne-Franche-Comté',
+  'Centre-Val de Loire',
+  'Corse',
 ] as const;
 
-export type Prefecture = typeof PREFECTURES[number];
+export type FranceRegion = typeof FRANCE_REGIONS[number];
