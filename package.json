@@ -1,13 +1,13 @@
 {
   "name": "my-sushi",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "tunnel": "expo start --tunnel"
+    "start": "node node_modules/expo/bin/cli start",
+    "android": "node node_modules/expo/bin/cli start --android",
+    "ios": "node node_modules/expo/bin/cli start --ios",
+    "web": "node node_modules/expo/bin/cli start --web",
+    "tunnel": "node node_modules/expo/bin/cli start --tunnel"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
+    "@types/react-native": "^0.72.8",
     "typescript": "~5.9.2"
   },
   "private": true

@@ -7,6 +7,7 @@ import { BakeryGeoJSON, BakeryFeature, BakeryPin } from '../types';
 import { CustomBakery } from '../store/useStore';
 
 import franceBakeriesData from './france_bakeries.json';
+import franceBakeriesExtra from './france_bakeries_extra.json';
 
 // フランスの地域おおよその座標範囲（境界判定用）
 const REGION_BOUNDS: { [key: string]: [number, number, number, number] } = {
@@ -80,10 +81,13 @@ export function customBakeryToPin(bakery: CustomBakery): BakeryPin {
 
 export function getAllBakeryPins(): BakeryPin[] {
   const data = franceBakeriesData as BakeryGeoJSON;
-  return data.features.map((f) => featureToPin(f as BakeryFeature));
+  const extra = franceBakeriesExtra as BakeryFeature[];
+  const allFeatures = [...data.features, ...extra];
+  return allFeatures.map((f) => featureToPin(f as BakeryFeature));
 }
 
 export function getBakeryCount(): number {
   const data = franceBakeriesData as BakeryGeoJSON;
-  return data.features.length;
+  const extra = franceBakeriesExtra as BakeryFeature[];
+  return data.features.length + extra.length;
 }

@@ -42,6 +42,14 @@ export const BEER_COLORS = {
   beerPin: '#1E3A5F',
   cluster: '#2C5282',
 
+  // Bakery pins – Ghibli-style (soft sage, cream, warm amber)
+  bakeryPinDefaultBg: '#F5F0E8',
+  bakeryPinDefaultBorder: '#8B9B7A',
+  bakeryPinVisited: '#6B8E6B',
+  bakeryPinWantToGo: '#C4A35A',
+  bakeryPinShadow: '#5C5348',
+  bakeryCluster: '#7D8B6F',
+
   // Borders
   border: 'rgba(44, 36, 25, 0.08)',
   borderLight: 'rgba(44, 36, 25, 0.04)',

@@ -5,7 +5,7 @@
 // ============================================
 
 import React, { useRef, useCallback, useMemo, useState, memo, useEffect } from 'react';
-import { StyleSheet, View, Text, Pressable, Switch } from 'react-native';
+import { StyleSheet, View, Text, Pressable, Switch, Image } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
 import ClusteredMapView from 'react-native-map-clustering';
 import { Ionicons } from '@expo/vector-icons';
@@ -371,7 +371,7 @@ export default function BakeryMap() {
                 style={[
                   styles.pinContainer,
                   { borderColor: pinStyle.borderColor, backgroundColor: pinStyle.bgColor },
-                  pinStyle.icon ? styles.highlightedPinShadow : undefined,
+                  pinStyle.icon && styles.highlightedPinShadow,
                 ]}
               >
                 {pinStyle.icon ? (
@@ -397,7 +397,10 @@ export default function BakeryMap() {
         <View style={styles.listHeader}>
           <View style={styles.listHeaderRow}>
             <View>
-              <Text style={styles.listTitle}>🥖 {regionFilter || 'France'} · Boulangeries</Text>
+              <View style={styles.listTitleRow}>
+                <Image source={require('../../assets/images/icon.png')} style={styles.listTitleIcon} resizeMode="contain" />
+                <Text style={styles.listTitle}>{regionFilter || 'France'} · Boulangeries</Text>
+              </View>
               <Text style={styles.listSubtitle}>
                 {displayCount.toLocaleString()} shown
                 {excludedBakeries.length > 0 && hideExcluded && ` (${excludedBakeries.length} hidden)`}
@@ -484,7 +487,7 @@ export default function BakeryMap() {
           />
         ) : (
           <View style={styles.listEmpty}>
-            <Text style={styles.listEmptyIcon}>{filterMode === 'tried' ? '🥖' : '🥖'}</Text>
+            <Image source={require('../../assets/images/icon.png')} style={styles.listEmptyIconImage} resizeMode="contain" />
             <Text style={styles.listEmptyText}>
               {filterMode === 'tried' ? 'No visited bakeries yet' : filterMode === 'wantToGo' ? 'No want-to-go bakeries yet' : 'No bakeries here'}
             </Text>
@@ -520,9 +523,11 @@ const styles = StyleSheet.create({
   map: { flex: 1 },
   pinContainer: {
     width: PIN_SIZE.marker, height: PIN_SIZE.marker, borderRadius: PIN_SIZE.marker / 2, borderWidth: 3, backgroundColor: BEER_COLORS.backgroundCard,
-    justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 4,
+    justifyContent: 'center', alignItems: 'center', overflow: 'hidden', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 4,
   },
   pinEmoji: { fontSize: 22 },
+  pinImageWrap: { width: PIN_SIZE.marker, height: PIN_SIZE.marker, justifyContent: 'center', alignItems: 'center' },
+  pinImage: { width: PIN_SIZE.marker + 12, height: PIN_SIZE.marker + 12 },
   highlightedPinShadow: { shadowOpacity: 0.4, shadowRadius: 5, elevation: 6 },
   clusterContainer: {
     width: PIN_SIZE.cluster, height: PIN_SIZE.cluster, borderRadius: PIN_SIZE.cluster / 2, backgroundColor: BEER_COLORS.cluster, borderWidth: 3, borderColor: BEER_COLORS.backgroundCard,
@@ -550,6 +555,9 @@ const styles = StyleSheet.create({
   listSeparator: { height: 1, backgroundColor: BEER_COLORS.border, marginLeft: SPACING.lg + 40 + SPACING.md },
   listEmpty: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: SPACING.xl },
   listEmptyIcon: { fontSize: 48, marginBottom: SPACING.md },
+  listEmptyIconImage: { width: 72, height: 72, marginBottom: SPACING.md },
+  listTitleRow: { flexDirection: 'row', alignItems: 'center', gap: SPACING.sm },
+  listTitleIcon: { width: 28, height: 28 },
   listEmptyText: { fontSize: 14, color: BEER_COLORS.textMuted, textAlign: 'center' },
   advancedFilters: { paddingHorizontal: SPACING.lg, paddingBottom: SPACING.md, borderBottomWidth: 1, borderBottomColor: BEER_COLORS.border, marginBottom: SPACING.sm },
   advancedFilterRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: SPACING.sm },
